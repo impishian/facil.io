@@ -10,7 +10,7 @@ Google Chrome's C++ Search Extension or Rust Search Extension, can run in local 
 
 I use facil.io as a local http server for these two extensions.
 
-The facil.io executable file is about 400~500KB.
+The facil.io executable file is about 350~500KB.
 
 ----
 
