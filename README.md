@@ -23,3 +23,6 @@ sleep 2
 nohup facil -p 3333 -w 1 -t 1 -www /Users/ian/Downloads/html-book-20211231/reference/ 2>&1 > /dev/null &
 nohup facil -p 4444 -w 1 -t 1 -www /Users/ian/.rustup/toolchains/stable-x86_64-apple-darwin/share/doc/rust/html 2>&1 > /dev/null &
 ```
+----
+
+facil.io can also be used as a local http server for html documents of asio, h2o ... and many other open source projects.
