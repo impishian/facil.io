@@ -1,4 +1,4 @@
 #!/bin/bash
-gcc -I. -o abc *.c -O2 -march=native  -DNDEBUG -lpthread
+gcc -I. -o facil *.c -O2 -march=native  -DNDEBUG -lpthread
 
-strip abc
+strip facil
