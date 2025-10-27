@@ -44,7 +44,7 @@ $ cat rs_cc.doc.sh
 ```bash
 #!/usr/bin/env bash
 
-pgrep facil|xargs kill
+pkill facil
 sleep 2
 nohup facil -p 3333 -w 1 -t 1 -www /Users/ian/Downloads/html-book-20250209/reference/ 2>&1 > /dev/null &
 nohup facil -p 4444 -w 1 -t 1 -www /Users/ian/.rustup/toolchains/stable-aarch64-apple-darwin/share/doc/rust/html 2>&1 > /dev/null &
