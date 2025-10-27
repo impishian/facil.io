@@ -1,6 +1,6 @@
 # My facil.io
 
-Based on the [facil.io](https://github.com/boazsegev/facil.io) libdump, I left out redis_engine.h/c and supplied main.c and build.sh for Linux & macOS. 
+Based on the [facil.io](https://github.com/boazsegev/facil.io) libdump, removed some files (redis_engine.h/c, tls, mustache, hpack, resp_parser), and added main.c & build.sh (for Linux & macOS). 
 
 The result is a 300–500 kB single-binary HTTP server (compiled with ‑Os … ‑Ofast) that I use to serve local documentation for Chrome’s offline Rust/C++ Search Extension (both work fully offline).
 
