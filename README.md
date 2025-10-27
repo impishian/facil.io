@@ -4,6 +4,39 @@ Based on the [facil.io](https://github.com/boazsegev/facil.io) libdump, removed 
 
 The result is a 300–500 kB single-binary HTTP server (compiled with ‑Os … ‑Ofast) that I use to serve local documentation for Chrome’s offline Rust/C++ Search Extension (both work fully offline).
 
+```bash
+$ facil -h
+
+This application accepts any of the following possible arguments:
+
+Address binding:
+ -port ##	port number to listen to. defaults port 3000
+ -p ##   	(same as -port)
+ -bind <>	address to listen to. defaults any available.
+ -b <>   	(same as -bind)
+
+Concurrency:
+ -workers ##	number of processes to use.
+ -w ##      	(same as -workers)
+ -threads ##	number of threads per process.
+ -t ##      	(same as -threads)
+
+HTTP Server:
+ -public <>	public folder, for static file service.
+ -www <>   	(same as -public)
+ -keep-alive ##	HTTP keep-alive timeout (0..255). default: ~5s
+ -k ##         	(same as -keep-alive)
+ -max-body ##	HTTP upload limit. default: ~50Mb
+ -maxbd ##   	(same as -max-body)
+ -log   	request verbosity (logging).
+ -v     	(same as -log)
+
+Use any of the following input formats:
+	-arg <value>	-arg=<value>	-arg<value>
+
+Use the -h, -help or -? to get this information again.
+```
+
 ## Example: 
 
 $ cat rs_cc.doc.sh
