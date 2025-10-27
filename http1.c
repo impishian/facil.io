@@ -7,7 +7,6 @@ License: MIT
 #include <http1.h>
 #include <http1_parser.h>
 #include <http_internal.h>
-#include <websockets.h>
 
 #include <fiobj.h>
 
@@ -297,8 +296,6 @@ static void http1_websocket_client_on_upgrade(http_s *h, char *proto,
   set->udata = NULL;
   http_finish(h);
   p->stop = 1;
-  websocket_attach(uuid, set, args, p->parser.state.next,
-                   p->buf_len - (intptr_t)(p->parser.state.next - p->buf));
   fio_free(args);
   (void)proto;
   (void)len;
@@ -358,8 +355,6 @@ static int http1_http2websocket_server(http_s *h, websocket_settings_s *args) {
   http_settings_s *set = handle2pr(h)->p.settings;
   http_finish(h);
   pr->stop = 1;
-  websocket_attach(uuid, set, args, pr->parser.state.next,
-                   pr->buf_len - (intptr_t)(pr->parser.state.next - pr->buf));
   return 0;
 bad_request:
   http_send_error(h, 400);

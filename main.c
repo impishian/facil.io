@@ -16,11 +16,7 @@ void initialize_cli(int argc, char const *argv[]) {
       FIO_CLI_INT(
           "-keep-alive -k HTTP keep-alive timeout (0..255). default: ~5s"),
       FIO_CLI_INT("-max-body -maxbd HTTP upload limit. default: ~50Mb"),
-      FIO_CLI_BOOL("-log -v request verbosity (logging)."),
-      FIO_CLI_PRINT_HEADER("WebSocket Server:"),
-      FIO_CLI_INT("-ping websocket ping interval (0..255). default: ~40s"),
-      FIO_CLI_INT("-max-msg -maxms incoming websocket message size limit. "
-                  "default: ~250Kb"));
+      FIO_CLI_BOOL("-log -v request verbosity (logging)."));
 
   /* Test and set any default options */
   if (!fio_cli_get("-b")) {

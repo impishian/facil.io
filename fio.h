@@ -714,8 +714,6 @@ struct fio_listen_args {
   const char *port;
   /** The socket binding address. Defaults to the recommended NULL. */
   const char *address;
-  /** a pointer to a `fio_tls_s` object, for SSL/TLS support (fio_tls.h). */
-  void *tls;
   /** Opaque user data. */
   void *udata;
   /**

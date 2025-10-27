@@ -5247,7 +5247,7 @@ intptr_t fio_listen FIO_IGNORE_MACRO(struct fio_listen_args args) {
     goto error;
   }
 #else
-  if ((!args.on_open && (!args.tls || !fio_tls_alpn_count(args.tls))) ||
+  if ((!args.on_open) ||
       (!args.address && !args.port)) {
     errno = EINVAL;
     goto error;
@@ -5278,30 +5278,18 @@ intptr_t fio_listen FIO_IGNORE_MACRO(struct fio_listen_args args) {
   fio_listen_protocol_s *pr = malloc(sizeof(*pr) + addr_len + port_len +
                                      ((addr_len + port_len) ? 2 : 0));
   FIO_ASSERT_ALLOC(pr);
-#ifndef __MINGW32__
-  if (args.tls)
-    fio_tls_dup(args.tls);
-#endif
   *pr = (fio_listen_protocol_s){
       .pr =
           {
               .on_close = fio_listen_on_close,
               .ping = mock_ping_eternal,
-#ifdef __MINGW32__
               .on_data = fio_listen_on_data,
-#else
-              .on_data = (args.tls ? (fio_tls_alpn_count(args.tls)
-                                          ? fio_listen_on_data_tls_alpn
-                                          : fio_listen_on_data_tls)
-                                   : fio_listen_on_data),
-#endif
           },
       .uuid = uuid,
       .udata = args.udata,
       .on_open = args.on_open,
       .on_start = args.on_start,
       .on_finish = args.on_finish,
-      .tls = args.tls,
       .addr_len = addr_len,
       .port_len = port_len,
       .addr = (char *)(pr + 1),
@@ -5434,19 +5422,11 @@ static void fio_connect_on_ready_tls_alpn(intptr_t uuid, fio_protocol_s *pr_) {
 intptr_t fio_connect___(struct fio_connect_args args);
 
 intptr_t fio_connect FIO_IGNORE_MACRO(struct fio_connect_args args) {
-#ifdef __MINGW32__
   if ((!args.on_connect) ||
       (!args.address && !args.port)) {
     errno = EINVAL;
     goto error;
   }
-#else
-  if ((!args.on_connect && (!args.tls || !fio_tls_alpn_count(args.tls))) ||
-      (!args.address && !args.port)) {
-    errno = EINVAL;
-    goto error;
-  }
-#endif
   const intptr_t uuid = fio_socket(args.address, args.port, 0);
   if (uuid == -1)
     goto error;
@@ -5454,25 +5434,13 @@ intptr_t fio_connect FIO_IGNORE_MACRO(struct fio_connect_args args) {
 
   fio_connect_protocol_s *pr = fio_malloc(sizeof(*pr));
   FIO_ASSERT_ALLOC(pr);
-#ifndef __MINGW32__
-  if (args.tls)
-    fio_tls_dup(args.tls);
-#endif
   *pr = (fio_connect_protocol_s){
       .pr =
           {
-#ifdef __MINGW32__
               .on_ready = fio_connect_on_ready,
-#else
-              .on_ready = (args.tls ? (fio_tls_alpn_count(args.tls)
-                                           ? fio_connect_on_ready_tls_alpn
-                                           : fio_connect_on_ready_tls)
-                                    : fio_connect_on_ready),
-#endif
               .on_close = fio_connect_on_close,
           },
       .uuid = uuid,
-      .tls = args.tls,
       .udata = args.udata,
       .on_connect = args.on_connect,
       .on_fail = args.on_fail,

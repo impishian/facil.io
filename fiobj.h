@@ -9,7 +9,6 @@ License: MIT
 #include <fiobj_data.h>
 #include <fiobj_hash.h>
 #include <fiobj_json.h>
-#include <fiobj_mustache.h>
 #include <fiobj_numbers.h>
 #include <fiobj_str.h>
 #include <fiobject.h>
@@ -30,7 +29,6 @@ FIO_INLINE void fiobj_test(void) {
   fiobj_test_core();
   fiobj_data_test();
   fiobj_test_json();
-  fiobj_mustache_test();
   fiobj_siphash_test();
   fprintf(stderr, "=== FIOBJ Done ===\n\n");
 }

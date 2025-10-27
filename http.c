@@ -927,14 +927,8 @@ intptr_t http_listen(const char *port, const char *binding,
 
   http_settings_s *settings = http_settings_new(arg_settings);
   settings->is_client = 0;
-#ifndef __MINGW32__
-  if (settings->tls) {
-    fio_tls_alpn_add(settings->tls, "http/1.1", http_on_server_protocol_http1,
-                     NULL, NULL);
-  }
-#endif
 
-  return fio_listen(.port = port, .address = binding, .tls = arg_settings.tls,
+  return fio_listen(.port = port, .address = binding,
                     .on_finish = http_on_finish, .on_open = http_on_open,
                     .udata = settings);
 }
